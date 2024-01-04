@@ -3,6 +3,8 @@ package br.com.davi.model;
 import java.io.Serializable;
 import java.util.Objects;
 
+import br.com.davi.enums.Unit;
+
 public class RequestApiModel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -10,12 +12,14 @@ public class RequestApiModel implements Serializable {
 	private String cityName;
 	private String mode;
 	private String weatherApiKey;
-
-	public RequestApiModel(String cityName, String mode, String weatherApiKey) {
+	private Unit unit;
+	
+	public RequestApiModel(String cityName, String mode, String weatherApiKey, Unit unit) {
 		super();
 		this.cityName = cityName;
 		this.mode = mode;
 		this.weatherApiKey = weatherApiKey;
+		this.unit = unit;
 	}
 
 	public RequestApiModel() {
@@ -45,9 +49,17 @@ public class RequestApiModel implements Serializable {
 		this.weatherApiKey = weatherApiKey;
 	}
 
+	public Unit getUnit() {
+		return unit;
+	}
+
+	public void setUnit(Unit unit) {
+		this.unit = unit;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(cityName, mode, weatherApiKey);
+		return Objects.hash(cityName, mode, unit, weatherApiKey);
 	}
 
 	@Override
@@ -59,7 +71,7 @@ public class RequestApiModel implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		RequestApiModel other = (RequestApiModel) obj;
-		return Objects.equals(cityName, other.cityName) && Objects.equals(mode, other.mode)
+		return Objects.equals(cityName, other.cityName) && Objects.equals(mode, other.mode) && unit == other.unit
 				&& Objects.equals(weatherApiKey, other.weatherApiKey);
 	}
 }

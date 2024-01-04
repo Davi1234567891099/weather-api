@@ -7,10 +7,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+
 import br.com.davi.WeatherRequestService;
 import br.com.davi.model.RequestApiModel;
+import br.com.davi.model.ResultWeatherDTO;
 
-@RequestMapping("/api/weather/v1")
+@RequestMapping("/api/weather")
 @RestController
 public class WeatherResource {
 
@@ -18,7 +22,7 @@ public class WeatherResource {
 	private WeatherRequestService weatherService;
 	
 	@PostMapping
-	public ResponseEntity<String> queryWeatherFromCity(@RequestBody RequestApiModel model){
+	public ResponseEntity<ResultWeatherDTO> queryWeatherFromCity(@RequestBody RequestApiModel model) throws JsonMappingException, JsonProcessingException{
 		return ResponseEntity.ok().body(weatherService.weatherFromCity(model));
 	}
 }
