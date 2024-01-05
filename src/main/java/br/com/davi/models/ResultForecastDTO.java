@@ -8,10 +8,14 @@ import org.springframework.hateoas.RepresentationModel;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ResultForecastDTO extends RepresentationModel<ResultForecastDTO>{
 
+	@Schema(name = "multi-day weather forecast list")
 	private List<DayForecastResultDTO> list;
+	@Schema(name = "City and country informations")
 	private CityDTO city;
 
 	public ResultForecastDTO() {

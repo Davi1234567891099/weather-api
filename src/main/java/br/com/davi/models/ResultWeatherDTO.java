@@ -10,14 +10,19 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonPropertyOrder({ "name", "main", "date" })
 public class ResultWeatherDTO extends RepresentationModel<ResultWeatherDTO>{
 
 	private static final long THREE_HOURS = 10800;
 	
+	@Schema(name = "name of the city")
 	private String name;
+	@Schema(name = "Air parameters", example = "humidity, temperature etc")
 	private AirParametersDTO main;
+	@Schema(name = "date the request was made")
 	private Date date = Date.from(Instant.now().minusSeconds(THREE_HOURS));
 	
 	public ResultWeatherDTO() {

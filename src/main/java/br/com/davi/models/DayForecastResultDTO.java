@@ -5,10 +5,14 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DayForecastResultDTO {
 
+	@Schema(name = "Air parameters", example = "humidity, temperature etc")
 	private AirParametersDTO main;
+	@Schema(name = "Date of the weather forecast")
 	private String dt_txt;
 
 	public DayForecastResultDTO() {

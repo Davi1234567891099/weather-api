@@ -14,6 +14,14 @@ import jakarta.servlet.http.HttpServletRequest;
 @ControllerAdvice
 public class ResourceExceptionHandler {
 
+	@ExceptionHandler(Exception.class)
+	public final ResponseEntity<ExceptionResponse> handleAllExceptions(Exception ex, HttpServletRequest request) {
+		String error = "Error occurred when trying to process the request";
+		HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+		ExceptionResponse err = new ExceptionResponse(Instant.now(), status.value(), error, ex.getMessage(), request.getRequestURI());
+		return ResponseEntity.status(status).body(err);
+	}
+	
 	@ExceptionHandler(ExternalApiException.class)
 	public ResponseEntity<ExceptionResponse> handleUnauthorizedExceptions(Exception ex, HttpServletRequest request){
 		String error = "Invalid API key! check your keys at: https://openweathermap.org";

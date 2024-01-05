@@ -5,11 +5,16 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AirParametersDTO {
 
+	@Schema(name = "temperature")
 	private Double temp;
+	@Schema(name = "thermical sensation")
 	private Double feels_like;
+	@Schema(name = "humidity information")
 	private Integer humidity;
 	
 	public AirParametersDTO() {
