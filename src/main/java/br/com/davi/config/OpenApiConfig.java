@@ -17,7 +17,8 @@ public class OpenApiConfig {
 	private static Info constructApiInfo() {
 		var inf = new Info();
 		inf.setTitle("Simple weather api");
-		inf.setDescription("Simple api that consumes another api (open weather map) to query the weather in any city. For study and practice porpuses");
+		inf.setDescription("Simple api that consumes another api (open weather map) to query the weather in any city."
+				+ " For study and practice porpuses. To use this api, you need to create an account in open weather map and get a api key");
 		inf.version("v1");
 		return inf;
 	}
