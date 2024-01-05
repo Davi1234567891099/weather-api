@@ -3,11 +3,13 @@ package br.com.davi.models;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ResultForecastDTO {
+public class ResultForecastDTO extends RepresentationModel<ResultForecastDTO>{
 
 	private List<DayForecastResultDTO> list;
 	private CityDTO city;

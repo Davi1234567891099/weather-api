@@ -4,13 +4,15 @@ import java.time.Instant;
 import java.util.Date;
 import java.util.Map;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonPropertyOrder({ "name", "main", "date" })
-public class ResultWeatherDTO {
+public class ResultWeatherDTO extends RepresentationModel<ResultWeatherDTO>{
 
 	private static final long THREE_HOURS = 10800;
 	
@@ -21,7 +23,7 @@ public class ResultWeatherDTO {
 	public ResultWeatherDTO() {
 	}
 
-	public ResultWeatherDTO(String name, AirParametersDTO main, Long dt) {
+	public ResultWeatherDTO(String name, AirParametersDTO main) {
 		super();
 		this.name = name;
 		this.main = main;
@@ -38,6 +40,7 @@ public class ResultWeatherDTO {
 	public void setDate(Date date) {
 		this.date = date;
 	}
+
 
 	@JsonAnyGetter
 	public Map<String, Object> any() {

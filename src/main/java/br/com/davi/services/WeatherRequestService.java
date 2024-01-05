@@ -5,6 +5,7 @@ import static java.lang.String.format;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -18,6 +19,7 @@ import br.com.davi.exceptions.ExternalApiException;
 import br.com.davi.models.RequestApiModel;
 import br.com.davi.models.ResultForecastDTO;
 import br.com.davi.models.ResultWeatherDTO;
+import br.com.davi.resources.WeatherResource;
 
 @Service
 public class WeatherRequestService {
@@ -34,14 +36,18 @@ public class WeatherRequestService {
 		String json = tryConsumeApi(request, WeatherConstants.FORECAST_API_UTL);
 		
 		var mapper = new ObjectMapper();
-		return mapper.readValue(json, ResultForecastDTO.class);
+		var dto = mapper.readValue(json, ResultForecastDTO.class);
+		dto.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(WeatherResource.class).queryWeatherFromCity(request)).withSelfRel());
+		return dto;
 	}
 	
 	private ResultWeatherDTO makeWeatherRequest(RequestApiModel request) throws JsonMappingException, JsonProcessingException {
 		String json = tryConsumeApi(request, WeatherConstants.WEATHER_API_URL);
 		
 		var mapper = new ObjectMapper();
-		return mapper.readValue(json, ResultWeatherDTO.class);
+		var dto = mapper.readValue(json, ResultWeatherDTO.class);
+		dto.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(WeatherResource.class).queryForecastFromCity(request)).withSelfRel());
+		return dto;
 	}
 
 	private String tryConsumeApi(RequestApiModel request, String apiUrl) {
