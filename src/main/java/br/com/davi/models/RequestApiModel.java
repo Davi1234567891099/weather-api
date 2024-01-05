@@ -1,4 +1,4 @@
-package br.com.davi.model;
+package br.com.davi.models;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -10,19 +10,17 @@ public class RequestApiModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String cityName;
-	private String mode;
-	private String weatherApiKey;
+	private String apiKey;
 	private Unit unit;
-	
-	public RequestApiModel(String cityName, String mode, String weatherApiKey, Unit unit) {
-		super();
-		this.cityName = cityName;
-		this.mode = mode;
-		this.weatherApiKey = weatherApiKey;
-		this.unit = unit;
-	}
 
 	public RequestApiModel() {
+	}
+
+	public RequestApiModel(String cityName, String apiKey, Unit unit) {
+		super();
+		this.cityName = cityName;
+		this.apiKey = apiKey;
+		this.unit = unit;
 	}
 
 	public String getCityName() {
@@ -33,20 +31,12 @@ public class RequestApiModel implements Serializable {
 		this.cityName = cityName;
 	}
 
-	public String getMode() {
-		return mode;
+	public String getApiKey() {
+		return apiKey;
 	}
 
-	public void setMode(String mode) {
-		this.mode = mode;
-	}
-
-	public String getWeatherApiKey() {
-		return weatherApiKey;
-	}
-
-	public void setWeatherApiKey(String weatherApiKey) {
-		this.weatherApiKey = weatherApiKey;
+	public void setApiKey(String apiKey) {
+		this.apiKey = apiKey;
 	}
 
 	public Unit getUnit() {
@@ -59,7 +49,7 @@ public class RequestApiModel implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(cityName, mode, unit, weatherApiKey);
+		return Objects.hash(apiKey, cityName, unit);
 	}
 
 	@Override
@@ -71,7 +61,6 @@ public class RequestApiModel implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		RequestApiModel other = (RequestApiModel) obj;
-		return Objects.equals(cityName, other.cityName) && Objects.equals(mode, other.mode) && unit == other.unit
-				&& Objects.equals(weatherApiKey, other.weatherApiKey);
+		return Objects.equals(apiKey, other.apiKey) && Objects.equals(cityName, other.cityName) && unit == other.unit;
 	}
 }

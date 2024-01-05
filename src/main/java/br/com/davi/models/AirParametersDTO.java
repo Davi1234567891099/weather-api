@@ -1,22 +1,21 @@
-package br.com.davi.model;
+package br.com.davi.models;
 
 import java.util.Map;
-import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class AirParameters {
+public class AirParametersDTO {
 
 	private Double temp;
 	private Double feels_like;
 	private Integer humidity;
 	
-	public AirParameters() {
+	public AirParametersDTO() {
 	}
 
-	public AirParameters(Double temp, Double feels_like, Integer humidity) {
+	public AirParametersDTO(Double temp, Double feels_like, Integer humidity) {
 		super();
 		this.temp = temp;
 		this.feels_like = feels_like;
@@ -33,23 +32,6 @@ public class AirParameters {
 
 	public void setHumidity(Integer humidity) {
 		this.humidity = humidity;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(temp);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		AirParameters other = (AirParameters) obj;
-		return Objects.equals(temp, other.temp);
 	}
 
 	@JsonAnyGetter

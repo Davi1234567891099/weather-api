@@ -1,4 +1,4 @@
-package br.com.davi.model;
+package br.com.davi.models;
 
 import java.time.Instant;
 import java.util.Date;
@@ -9,16 +9,19 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonPropertyOrder({ "cityName", "airParameters" })
+@JsonPropertyOrder({ "name", "main", "date" })
 public class ResultWeatherDTO {
 
+	private static final long THREE_HOURS = 10800;
+	
 	private String name;
-	private AirParameters main;
-
+	private AirParametersDTO main;
+	private Date date = Date.from(Instant.now().minusSeconds(THREE_HOURS));
+	
 	public ResultWeatherDTO() {
 	}
 
-	public ResultWeatherDTO(String name, AirParameters main, Long dt) {
+	public ResultWeatherDTO(String name, AirParametersDTO main, Long dt) {
 		super();
 		this.name = name;
 		this.main = main;
@@ -28,14 +31,18 @@ public class ResultWeatherDTO {
 		this.name = name;
 	}
 
-	public void setMain(AirParameters main) {
+	public void setMain(AirParametersDTO main) {
 		this.main = main;
 	}
 
+	public void setDate(Date date) {
+		this.date = date;
+	}
 
 	@JsonAnyGetter
 	public Map<String, Object> any() {
 		return Map.of("cityName", name,
-				"airParameters", main);
+				"airParameters", main,
+				"actualDate", date);
 	}
 }
