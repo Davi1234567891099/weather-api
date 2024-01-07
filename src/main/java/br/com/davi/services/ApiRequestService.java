@@ -22,34 +22,47 @@ import br.com.davi.models.ResultWeatherDTO;
 import br.com.davi.resources.WeatherResource;
 
 @Service
-public class WeatherRequestService {
+public class ApiRequestService {
 	
 	public ResultWeatherDTO weatherFromCity(RequestApiModel request) throws JsonMappingException, JsonProcessingException {
-		return makeWeatherRequest(request);
+		return executeWeatherRequest(request);
 	}
 
 	public ResultForecastDTO forecastFromCity(RequestApiModel request) throws JsonMappingException, JsonProcessingException {
-		return makeForecastRequest(request);
+		return executeForecastRequest(request);
 	}
 	
-	private ResultForecastDTO makeForecastRequest(RequestApiModel request) throws JsonMappingException, JsonProcessingException {
-		String json = tryConsumeApi(request, WeatherConstants.FORECAST_API_UTL);
-		
-		var mapper = new ObjectMapper();
-		var dto = mapper.readValue(json, ResultForecastDTO.class);
-		dto.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(WeatherResource.class).queryWeatherFromCity(request)).withSelfRel());
-		return dto;
-	}
-	
-	private ResultWeatherDTO makeWeatherRequest(RequestApiModel request) throws JsonMappingException, JsonProcessingException {
-		String json = tryConsumeApi(request, WeatherConstants.WEATHER_API_URL);
-		
-		var mapper = new ObjectMapper();
-		var dto = mapper.readValue(json, ResultWeatherDTO.class);
-		dto.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(WeatherResource.class).queryForecastFromCity(request)).withSelfRel());
+	private ResultForecastDTO executeForecastRequest(RequestApiModel request) throws JsonMappingException, JsonProcessingException {
+		var dto = makeRequest(request, ResultForecastDTO.class, WeatherConstants.FORECAST_API_URL);
+		setForecastHateoasLinks(request, dto);
 		return dto;
 	}
 
+	private ResultWeatherDTO executeWeatherRequest(RequestApiModel request) throws JsonMappingException, JsonProcessingException {
+		var dto = makeRequest(request, ResultWeatherDTO.class, WeatherConstants.WEATHER_API_URL);
+		setWeatherHateoasLinks(request, dto);
+		return dto;
+	}
+	
+	private void setForecastHateoasLinks(RequestApiModel request, ResultForecastDTO dto) throws JsonMappingException, JsonProcessingException {
+		dto.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(WeatherResource.class).queryWeatherFromCity(request)).withSelfRel());
+	}
+	
+	private void setWeatherHateoasLinks(RequestApiModel request, ResultWeatherDTO dto) throws JsonMappingException, JsonProcessingException {
+		dto.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(WeatherResource.class).queryForecastFromCity(request)).withSelfRel());
+	}
+
+	private <T> T makeRequest(RequestApiModel request, Class<T> dtoModel, String apiUrl) throws JsonMappingException, JsonProcessingException {
+		String json = tryConsumeApi(request, apiUrl);
+		return deserializeJson(dtoModel, json);
+	}
+
+	private <T> T deserializeJson(Class<T> dtoModel, String json) throws JsonProcessingException, JsonMappingException {
+		var mapper = new ObjectMapper();
+		var dto = mapper.readValue(json, dtoModel);
+		return dto;
+	}
+	
 	private String tryConsumeApi(RequestApiModel request, String apiUrl) {
 		String json = null;
 		RestTemplate rstTemplate = new RestTemplate();

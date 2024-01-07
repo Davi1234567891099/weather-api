@@ -14,7 +14,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import br.com.davi.models.RequestApiModel;
 import br.com.davi.models.ResultForecastDTO;
 import br.com.davi.models.ResultWeatherDTO;
-import br.com.davi.services.WeatherRequestService;
+import br.com.davi.services.ApiRequestService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -27,7 +27,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 public class WeatherResource {
 
 	@Autowired
-	private WeatherRequestService weatherService;
+	private ApiRequestService weatherService;
 
 	@PostMapping(value = "weather",
 			produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE },
