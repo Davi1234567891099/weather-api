@@ -27,7 +27,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 public class WeatherResource {
 
 	@Autowired
-	private ApiRequestService weatherService;
+	private ApiRequestService apiRequestService;
 
 	@PostMapping(value = "weather",
 			produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE },
@@ -38,7 +38,7 @@ public class WeatherResource {
 			@ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
 			@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content), })
 	public ResponseEntity<ResultWeatherDTO> queryWeatherFromCity(@RequestBody RequestApiModel model) throws JsonMappingException, JsonProcessingException {
-		return ResponseEntity.ok().body(weatherService.weatherFromCity(model));
+		return ResponseEntity.ok().body(apiRequestService.weatherFromCity(model));
 	}
 
 	
@@ -52,6 +52,6 @@ public class WeatherResource {
 			@ApiResponse(description = "Internal Error", responseCode = "500", content = @Content), })
 	public ResponseEntity<ResultForecastDTO> queryForecastFromCity(@RequestBody RequestApiModel model)
 			throws JsonMappingException, JsonProcessingException {
-		return ResponseEntity.ok().body(weatherService.forecastFromCity(model));
+		return ResponseEntity.ok().body(apiRequestService.forecastFromCity(model));
 	}
 }

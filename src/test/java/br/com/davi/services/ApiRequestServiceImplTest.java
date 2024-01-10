@@ -13,12 +13,13 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import br.com.davi.enums.Unit;
 import br.com.davi.exceptions.ExternalApiException;
 import br.com.davi.models.RequestApiModel;
+import br.com.davi.services.impl.ApiRequestServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
-public class ApiRequestServiceTest {
+public class ApiRequestServiceImplTest {
 
 	@InjectMocks
-	private ApiRequestService apiRequestService;
+	private ApiRequestServiceImpl apiRequestService;
 	
 	@Test
 	void testWeatherFromCityWithWrongApiKeyShouldThrowException() throws JsonMappingException, JsonProcessingException {

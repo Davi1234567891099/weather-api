@@ -17,7 +17,7 @@ import br.com.davi.enums.Unit;
 import br.com.davi.models.RequestApiModel;
 import br.com.davi.models.ResultForecastDTO;
 import br.com.davi.models.ResultWeatherDTO;
-import br.com.davi.services.ApiRequestService;
+import br.com.davi.services.impl.ApiRequestServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
 public class WeatherResourceTest {
@@ -26,7 +26,7 @@ public class WeatherResourceTest {
 	private WeatherResource resource;
 	
 	@Mock
-	private ApiRequestService weatherService;
+	private ApiRequestServiceImpl weatherService;
 	
 	private RequestApiModel requestApiModel;
 	

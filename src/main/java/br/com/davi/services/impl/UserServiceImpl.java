@@ -1,4 +1,4 @@
-package br.com.davi.services;
+package br.com.davi.services.impl;
 
 import java.util.logging.Logger;
 
@@ -12,12 +12,12 @@ import br.com.davi.repositories.UserRepository;
 
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserServiceImpl implements UserDetailsService {
 	
 	@Autowired
 	private UserRepository repository;
 	
-	public UserService(UserRepository repository) {
+	public UserServiceImpl(UserRepository repository) {
 		this.repository = repository;
 	}
 
