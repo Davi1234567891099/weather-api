@@ -1,4 +1,4 @@
-##Default user for use the api:
+## Default user for use the api:
 - User: defaultUser
 - Password: admin234
 
@@ -8,14 +8,14 @@ To use the api, you need to have an account created in open weather map to gener
 
 ---
 
-##To see another documentation, go to swagger endpoint:
+## To see another documentation, go to swagger endpoint:
 - /swagger-ui/index.html#/
 
 ---
 
 You need postgresql database installed to use this api.
 
-##This api uses:
+## This api uses:
 - Flyway for migrations
 - PostgreSql for database
 - Custom json serialization
