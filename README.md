@@ -14,7 +14,7 @@
 
 ---
 
-You need postgresql database installed to use this api.
+You need postgresql database installed to run this application.
 
 ## This api uses:
 - Flyway for migrations
